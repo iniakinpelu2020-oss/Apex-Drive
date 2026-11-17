@@ -39,13 +39,13 @@ AI tagging and search can come later. It never gets to decide what is deleted.
 
 ## Phases
 
-**Phase 1 — space report (this repo, works today).**
+**Phase 1 — space report.**
 Read-only scan. Tells you how much is recoverable and where, so you can decide whether the
 rest of the project is worth building. Uploads nothing. Deletes nothing.
 
 **Phase 2 — upload and verify.**
-Worker endpoint that streams files into Cloudflare R2 and records a checksum manifest.
-The phone keeps its copy. Nothing is removed in this phase at all.
+Worker endpoint that streams files into Cloudflare R2 and records a checksum manifest,
+plus the Android app that sends them. The phone keeps its copy. Nothing is removed here.
 
 **Phase 3 — the window and the batch.**
 After the waiting period, verified-and-old-enough items appear as one batch for approval.
@@ -55,29 +55,27 @@ Approve, and only then does the phone remove them.
 Runs while charging and on Wi-Fi, survives reboots, reports what it did. Android background
 limits are the real work here, not the upload code.
 
-## Getting it onto the phone
+## Getting the script onto the phone
 
-The script is not on your phone yet. Termux starts in its own home folder, and this repo is
-private, so there is nothing to find there until you put it there.
+The phase 1 script is not on your phone yet. Termux starts in its own home folder, and this
+repo is private, so there is nothing to find there until you put it there.
 
 Easiest — no token needed, because the browser is already signed in:
 
-1. On the phone, open this repo's GitHub page → **Code** → **Download ZIP**.
-2. In Termux:
+1. On the phone, open the repo's GitHub page and tap `space_report.py`.
+2. Tap the download icon in the file header (or **⋯ → Download** in the GitHub app).
+3. In Termux:
 
 ```bash
-pkg install unzip python -y
-cp ~/storage/downloads/Apex-Drive-main.zip ~
-cd ~ && unzip -o Apex-Drive-main.zip
-cd Apex-Drive-main
+cd ~
+cp ~/storage/downloads/space_report.py .
+python3 space_report.py
 ```
-
-If the zip landed somewhere else, `ls ~/storage/downloads` will show the real name.
 
 ## Running phase 1 on your phone
 
 ```bash
-# in Termux, inside the Apex-Drive-main folder
+# in Termux, in the folder that contains space_report.py
 termux-setup-storage          # grants access to /sdcard (answer y)
 python3 space_report.py
 ```
@@ -119,4 +117,5 @@ Notes:
 
 ## Status
 
-Phase 1 is implemented. Phases 2–4 are not written yet.
+What exists today, what is stubbed and where the worker routes live: see [STATUS.md](STATUS.md).
+The phone app has its own notes in [android/README.md](android/README.md).
