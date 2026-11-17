@@ -55,14 +55,35 @@ Approve, and only then does the phone remove them.
 Runs while charging and on Wi-Fi, survives reboots, reports what it did. Android background
 limits are the real work here, not the upload code.
 
+## Getting it onto the phone
+
+The script is not on your phone yet. Termux starts in its own home folder, and this repo is
+private, so there is nothing to find there until you put it there.
+
+Easiest — no token needed, because the browser is already signed in:
+
+1. On the phone, open this repo's GitHub page → **Code** → **Download ZIP**.
+2. In Termux:
+
+```bash
+pkg install unzip python -y
+cp ~/storage/downloads/Apex-Drive-main.zip ~
+cd ~ && unzip -o Apex-Drive-main.zip
+cd Apex-Drive-main
+```
+
+If the zip landed somewhere else, `ls ~/storage/downloads` will show the real name.
+
 ## Running phase 1 on your phone
 
 ```bash
-# in Termux
-pkg install python
-termux-setup-storage          # grants access to /sdcard
+# in Termux, inside the Apex-Drive-main folder
+termux-setup-storage          # grants access to /sdcard (answer y)
 python3 space_report.py
 ```
+
+You must be in the folder that contains `space_report.py`, otherwise you get:
+`can't open file '.../space_report.py': [Errno 2] No such file or directory`
 
 Useful flags:
 
