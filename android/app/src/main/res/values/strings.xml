@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Apex Drive</string>
+    <string name="scanning">Scanning…</string>
+    <string name="saved">Saved.</string>
+    <string name="need_permission">Media permission not granted.</string>
+    <string name="queued">Queued. It uploads on Wi-Fi while charging.</string>
+    <string name="server_label">Worker URL</string>
+    <string name="server_hint">https://automation.your-name.workers.dev</string>
+    <string name="token_label">Sign-in token</string>
+    <string name="token_hint">Firebase ID token</string>
+    <string name="save">Save</string>
+    <string name="upload_now">Upload now</string>
+    <string name="no_delete_note">This version only uploads and verifies. Nothing on your phone is ever deleted by it.</string>
+</resources>
