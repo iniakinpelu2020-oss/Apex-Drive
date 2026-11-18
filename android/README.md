@@ -22,7 +22,8 @@ behind an explicit approval batch; until then the app cannot remove anything fro
 | --- | --- | --- |
 | `DriveConfig.token` is a hand-pasted Firebase ID token | Real sign-in needs Firebase Auth, `google-services.json` and a refresh loop | Firebase Auth + token refresh before each run |
 | Scan caps at 3000 items per run | Keeps the first build simple and predictable | Paged scan with a saved cursor |
-| No resumable uploads | A dropped connection re-sends that one file | R2 multipart upload for files over ~50 MB |
+| No resumable uploads | A dropped connection re-sends that one file | Multipart, or an upload straight to the bucket, for big video |
+| Files over ~95 MB are refused | Cloudflare caps a Worker request body at 100 MB on the free plan | Signed direct-to-bucket upload from the phone |
 | No UI list of uploaded files | The screen is a status readout | Library screen reading `GET /api/drive/list` |
 | Deletion | Phase 3 | `MediaStore.createDeleteRequest` + the approval batch from the worker |
 
